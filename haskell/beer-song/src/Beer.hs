@@ -22,18 +22,15 @@ nBottles n =
         1 -> "1 bottle"
         _ -> (show n) ++ " bottles"
 
-one n =
-    if n==1 then
-        "it"
-    else
-        "one"
 
-
+thirdBitOfVerse :: Int -> String
 thirdBitOfVerse n =
     if n==0 then
         "Go to the store and buy some more, "
     else
-        "Take " ++ (one n) ++ " down and pass it around, "
+        "Take " ++
+        (if n==1 then "it" else "one")
+        ++ " down and pass it around, "
 
 
 capitalize :: String -> String
