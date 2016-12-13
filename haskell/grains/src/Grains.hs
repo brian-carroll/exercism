@@ -25,9 +25,7 @@ sq n =
 
 square :: Integer -> Maybe Integer
 square input =
-    if input <= 0 then
-        Nothing
-    else if input > 64 then
+    if input <= 0 || input > 64 then
         Nothing
     else
         Just (sq $ fromInteger input)
