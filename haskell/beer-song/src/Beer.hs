@@ -14,17 +14,18 @@ import Data.List (intercalate)
 --        \No more bottles of beer on the wall, no more bottles of beer.\n\
 --        \Go to the store and buy some more, 99 bottles of beer on the wall.\n"
 
-nBottles :: Int -> String
-nBottles n =
-    case n of
-        -1 -> "99 bottles"
-        0 -> "no more bottles"
-        1 -> "1 bottle"
-        _ -> (show n) ++ " bottles"
+bottles :: Int -> String -> String
+bottles n str =
+    str ++
+        case n of
+            -1 -> "99 bottles"
+            0 -> "no more bottles"
+            1 -> "1 bottle"
+            _ -> (show n) ++ " bottles"
 
 
-thirdBitOfVerse :: Int -> String
-thirdBitOfVerse n =
+takeOneDownAndPassItAround :: Int -> String
+takeOneDownAndPassItAround n =
     if n==0 then
         "Go to the store and buy some more, "
     else
@@ -40,10 +41,11 @@ capitalize s =
 
 generateLine :: Int -> String
 generateLine n =
-    (capitalize (nBottles n)) ++ " of beer on the wall, " ++
-    (nBottles n) ++ " of beer.\n" ++
-    (thirdBitOfVerse n) ++
-    (nBottles (n-1)) ++ " of beer on the wall.\n"
+    (capitalize $
+        n `bottles` " of beer on the wall, ") ++
+    (n `bottles` " of beer.\n") ++
+    (takeOneDownAndPassItAround n) ++
+    ((n-1) `bottles` " of beer on the wall.\n")
 
 
 song :: String
