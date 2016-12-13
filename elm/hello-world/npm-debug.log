@@ -1,0 +1,94 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/home/brian/.nvm/versions/node/v4.5.0/bin/node',
+1 verbose cli   '/home/brian/.nvm/versions/node/v4.5.0/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '-g',
+1 verbose cli   'elm-format' ]
+2 info using npm@2.15.9
+3 info using node@v4.5.0
+4 verbose install initial load of /home/brian/.nvm/versions/node/v4.5.0/lib/package.json
+5 verbose readDependencies loading dependencies from /home/brian/.nvm/versions/node/v4.5.0/lib/package.json
+6 silly cache add args [ 'elm-format', null ]
+7 verbose cache add spec elm-format
+8 silly cache add parsed spec Result {
+8 silly cache add   raw: 'elm-format',
+8 silly cache add   scope: null,
+8 silly cache add   name: 'elm-format',
+8 silly cache add   rawSpec: '',
+8 silly cache add   spec: 'latest',
+8 silly cache add   type: 'tag' }
+9 silly addNamed elm-format@latest
+10 verbose addNamed "latest" is being treated as a dist-tag for elm-format
+11 info addNameTag [ 'elm-format', 'latest' ]
+12 silly mapToRegistry name elm-format
+13 silly mapToRegistry using default registry
+14 silly mapToRegistry registry https://registry.npmjs.org/
+15 silly mapToRegistry data Result {
+15 silly mapToRegistry   raw: 'elm-format',
+15 silly mapToRegistry   scope: null,
+15 silly mapToRegistry   name: 'elm-format',
+15 silly mapToRegistry   rawSpec: '',
+15 silly mapToRegistry   spec: 'latest',
+15 silly mapToRegistry   type: 'tag' }
+16 silly mapToRegistry uri https://registry.npmjs.org/elm-format
+17 verbose addNameTag registry:https://registry.npmjs.org/elm-format not in flight; fetching
+18 verbose request uri https://registry.npmjs.org/elm-format
+19 verbose request no auth needed
+20 info attempt registry request try #1 at 10:51:06 AM
+21 verbose request id fec489cce1a428d5
+22 http request GET https://registry.npmjs.org/elm-format
+23 http 404 https://registry.npmjs.org/elm-format
+24 verbose headers { 'content-type': 'application/json',
+24 verbose headers   'cache-control': 'max-age=0',
+24 verbose headers   'content-length': '2',
+24 verbose headers   'accept-ranges': 'bytes',
+24 verbose headers   date: 'Wed, 07 Sep 2016 09:51:06 GMT',
+24 verbose headers   via: '1.1 varnish',
+24 verbose headers   age: '0',
+24 verbose headers   connection: 'keep-alive',
+24 verbose headers   'x-served-by': 'cache-lhr6343-LHR',
+24 verbose headers   'x-cache': 'MISS',
+24 verbose headers   'x-cache-hits': '0',
+24 verbose headers   'x-timer': 'S1473241866.715520,VS0,VE193',
+24 verbose headers   vary: 'Accept-Encoding' }
+25 silly get cb [ 404,
+25 silly get   { 'content-type': 'application/json',
+25 silly get     'cache-control': 'max-age=0',
+25 silly get     'content-length': '2',
+25 silly get     'accept-ranges': 'bytes',
+25 silly get     date: 'Wed, 07 Sep 2016 09:51:06 GMT',
+25 silly get     via: '1.1 varnish',
+25 silly get     age: '0',
+25 silly get     connection: 'keep-alive',
+25 silly get     'x-served-by': 'cache-lhr6343-LHR',
+25 silly get     'x-cache': 'MISS',
+25 silly get     'x-cache-hits': '0',
+25 silly get     'x-timer': 'S1473241866.715520,VS0,VE193',
+25 silly get     vary: 'Accept-Encoding' } ]
+26 verbose stack Error: Registry returned 404 for GET on https://registry.npmjs.org/elm-format
+26 verbose stack     at makeError (/home/brian/.nvm/versions/node/v4.5.0/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:264:12)
+26 verbose stack     at CachingRegistryClient.<anonymous> (/home/brian/.nvm/versions/node/v4.5.0/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:242:14)
+26 verbose stack     at Request._callback (/home/brian/.nvm/versions/node/v4.5.0/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:172:14)
+26 verbose stack     at Request.self.callback (/home/brian/.nvm/versions/node/v4.5.0/lib/node_modules/npm/node_modules/request/request.js:200:22)
+26 verbose stack     at emitTwo (events.js:87:13)
+26 verbose stack     at Request.emit (events.js:172:7)
+26 verbose stack     at Request.<anonymous> (/home/brian/.nvm/versions/node/v4.5.0/lib/node_modules/npm/node_modules/request/request.js:1067:10)
+26 verbose stack     at emitOne (events.js:82:20)
+26 verbose stack     at Request.emit (events.js:169:7)
+26 verbose stack     at IncomingMessage.<anonymous> (/home/brian/.nvm/versions/node/v4.5.0/lib/node_modules/npm/node_modules/request/request.js:988:12)
+27 verbose statusCode 404
+28 verbose pkgid elm-format
+29 verbose cwd /home/brian/Documents/tutorials/exercism/elm/hello-world
+30 error Linux 3.13.0-95-generic
+31 error argv "/home/brian/.nvm/versions/node/v4.5.0/bin/node" "/home/brian/.nvm/versions/node/v4.5.0/bin/npm" "install" "-g" "elm-format"
+32 error node v4.5.0
+33 error npm  v2.15.9
+34 error code E404
+35 error 404 Registry returned 404 for GET on https://registry.npmjs.org/elm-format
+35 error 404
+35 error 404 'elm-format' is not in the npm registry.
+35 error 404 You should bug the author to publish it (or use the name yourself!)
+35 error 404
+35 error 404 Note that you can also install from a
+35 error 404 tarball, folder, http url, or git url.
+36 verbose exit [ 1, true ]

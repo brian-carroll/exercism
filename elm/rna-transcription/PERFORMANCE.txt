@@ -1,0 +1,11 @@
+Performance tests with long DNA input sequence
+
+2541ms - v1
+1618ms - v2 => Reducing to a single pass does improve performance :)
+1441ms - v3 => 10% improvement from refactor.
+                    v3 statically assigns err to Nothing on each iteration
+                    v2 recalculates this "Nothing" every time, from "Just (Maybe.withDefault c err)"
+1665ms - v2 with error, same as passing case
+1103ms - v3 with error, 25% faster than v3 passing case
+1414ms - v4 passing => same as v3. Compiled JS has tail call optimisation :)
+ 950ms - v4 with error => custom termination case instead of standard foldl is the best way to bail early
