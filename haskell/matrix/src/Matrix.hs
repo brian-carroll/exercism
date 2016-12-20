@@ -8,7 +8,7 @@ module Matrix
     , cols
     , column
     , flatten
-    , fromList
+    , Matrix.fromList
     , fromString
     , reshape
     , row
@@ -17,31 +17,31 @@ module Matrix
     , transpose
     ) where
 
-import qualified Data.Vector as V (Vector, fromList)
+import Data.Vector (Vector, fromList, (!))
 import Data.Char (isDigit)
 
 
 data Matrix a =
-    Matrix (V.Vector (V.Vector a))
+    Matrix (Vector (Vector a))
     deriving (Eq, Show)
 
 
 cols :: Matrix a -> Int
-cols m =
-    case m of
-        Matrix c -> length $ m !! 1
+cols m = undefined
+    -- case m of
+    --     Matrix c -> length $ m ! 1
 
-column :: Int -> Matrix a -> V.Vector a
+column :: Int -> Matrix a -> Vector a
 column = undefined
 
-flatten :: Matrix a -> V.Vector a
+flatten :: Matrix a -> Vector a
 flatten = undefined
 
 fromList :: [[a]] -> Matrix a
 fromList ll =
     Matrix $
-    V.fromList $
-    map V.fromList ll
+    Data.Vector.fromList $
+    map Data.Vector.fromList ll
 
 
 parseLine :: Bool -> String -> [String] -> String -> [String]
@@ -68,7 +68,7 @@ parseLine inQuotes buffer resultList s =
 
 fromString :: Read a => String -> Matrix a
 fromString s =
-    fromList $
+    Matrix.fromList $
     map (map read) $
     map words $
     lines s
@@ -83,12 +83,12 @@ fromString s =
     --         else
     --             strListList
     -- in
-    --     fromList listList
+    --     Matrix.fromList listList
 
 reshape :: (Int, Int) -> Matrix a -> Matrix a
 reshape = undefined
 
-row :: Int -> Matrix a -> V.Vector a
+row :: Int -> Matrix a -> Vector a
 row = undefined
 
 rows :: Matrix a -> Int
