@@ -12,27 +12,27 @@ valid :: Char -> Bool
 valid x =
     elem x validChars
 
+
+countHelper :: Char -> String -> Int -> Either String Int
+countHelper c s total =
+    case s of
+        "" ->
+            Right total
+        h:t ->
+            if not $ valid h then
+                Left "Invalid strand" -- terminate recursion early
+            else if h==c then
+                countHelper c t (total+1)
+            else
+                countHelper c t total
+
+
 count :: Char -> String -> Either String Int
 count c s =
-    let
-        foldClosure :: Either String Int -> Char -> Either String Int
-        foldClosure acc x =
-            if not $ valid x then
-                Left "Invalid strand"
-            else
-                case acc of
-                    Left msg ->
-                        Left msg
-                    Right total ->
-                        if x==c then
-                            Right (total + 1)
-                        else
-                            Right total
-    in
-        if not $ valid c then
-            Left "Invalid character"
-        else
-            foldl foldClosure (Right 0) s
+    if not $ valid c then
+        Left "Invalid character"
+    else
+        countHelper c s 0
 
 
 nucleotideCounts :: String -> Either String (Map Char Int)
