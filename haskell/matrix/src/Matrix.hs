@@ -1,3 +1,6 @@
+{-# LANGUAGE FlexibleInstances #-}
+
+
 module Matrix
     ( Matrix
     , cols
@@ -16,6 +19,36 @@ import qualified Data.Vector as Vector (Vector, fromList, (!), length, head, map
 import Data.Char (isDigit)
 
 
+{-
+
+class MatrixElement ... blah
+
+instance MatrixElement String where
+    function = id
+
+instance MatrixElement Int where
+    function = id
+
+data MatrixElement a => Matrix a
+    things...
+
+-}
+
+class MatrixElement a where
+    parseElement :: String -> a 
+    -- parseElement = id
+
+instance MatrixElement String where
+    parseElement = id
+
+instance MatrixElement Char where
+    parseElement = head
+
+instance MatrixElement Int where
+    parseElement = read
+
+
+-- data MatrixElement a => Matrix a =
 data Matrix a =
     Matrix (Vector.Vector (Vector.Vector a))
     deriving (Eq, Show)
@@ -56,7 +89,10 @@ parseLine :: Bool -> String -> [String] -> String -> [String]
 parseLine inQuotes buffer resultList s =
     case (inQuotes, s) of
         (_, "") ->              -- end of input string. Terminate recursion.
-            resultList ++ [buffer]
+            if null buffer then
+                resultList
+            else
+                resultList ++ [buffer]
 
         (True, '"':t) ->        -- exit from quoted section
             parseLine False buffer resultList t
@@ -67,31 +103,31 @@ parseLine inQuotes buffer resultList s =
         (False, '"':t) ->       -- enter quoted section
             parseLine True buffer resultList t
 
+        (False, '\'':t) ->        -- ignore single quote
+            parseLine False buffer resultList t
+
         (False, ' ':t) ->       -- space between matrix elements => copy buffer to resultList
-            parseLine False "" (resultList ++ [buffer]) t
+            if null buffer then
+                parseLine False "" resultList t
+            else
+                parseLine False "" (resultList ++ [buffer]) t
 
         (False, h:t) ->         -- copy unquoted matrix element into buffer
             parseLine False (buffer ++ [h]) resultList t
 
 
-fromString :: Read a => String -> Matrix a
+fromString :: MatrixElement a => String -> Matrix a
 fromString s =
-    fromList $
-    map (map read) $
-    map words $
-    lines s
-    -- let
-    --     strListList :: [[String]]
-    --     strListList =
-    --         map (parseLine False "" []) $ lines s
+    let
+        strListList :: [[String]]
+        strListList =
+            map (parseLine False "" []) $ lines s
 
-    --     listList =
-    --         if all (all (all isDigit)) strListList then
-    --             map (map read) strListList
-    --         else
-    --             strListList
-    -- in
-    --     Matrix.fromList listList
+        listList =
+            map (map parseElement) strListList
+    in
+        fromList listList
+
 
 reshape :: (Int, Int) -> Matrix a -> Matrix a
 reshape (r,c) m =
