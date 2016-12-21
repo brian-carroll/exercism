@@ -1,13 +1,10 @@
 module Hamming (distance) where
 
-helper :: String -> String -> Int -> Int
+helper :: String -> String -> Int -> Maybe Int
 helper a b dist =
     case (a, b) of
-        ([], _) ->
-            dist
-
-        (_, []) ->
-            dist
+        ([], []) ->
+            Just dist
 
         (ha:ta, hb:tb) ->
             let
@@ -19,10 +16,10 @@ helper a b dist =
             in
                 helper ta tb (dist+mismatch)
 
+        (_, _) ->
+            Nothing  -- One strand was longer than the other
+
 
 distance :: String -> String -> Maybe Int
 distance a b =
-    if length a /= length b then
-        Nothing
-    else
-        Just (helper a b 0)
+    helper a b 0
