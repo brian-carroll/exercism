@@ -30,29 +30,29 @@ specs = describe "matrix" $ do
     let intMatrix = fromString :: String -> Matrix Int
     let vector = Vector.fromList
 
-    -- it "extract first row" $ do
-    --   row 0 (intMatrix "1 2\n10 20") `shouldBe` vector [1, 2]
-    --   row 0 (intMatrix "9 7\n8 6"  ) `shouldBe` vector [9, 7]
+    it "extract first row" $ do
+      row 0 (intMatrix "1 2\n10 20") `shouldBe` vector [1, 2]
+      row 0 (intMatrix "9 7\n8 6"  ) `shouldBe` vector [9, 7]
 
-    -- it "extract second row" $ do
-    --   row 1 (intMatrix "9 8 7\n19 18 17") `shouldBe` vector [19, 18, 17]
-    --   row 1 (intMatrix "1 4 9\n16 25 36") `shouldBe` vector [16, 25, 36]
+    it "extract second row" $ do
+      row 1 (intMatrix "9 8 7\n19 18 17") `shouldBe` vector [19, 18, 17]
+      row 1 (intMatrix "1 4 9\n16 25 36") `shouldBe` vector [16, 25, 36]
 
-    -- it "extract first column" $ do
-    --   column 0 (intMatrix "1 2 3\n4 5 6\n7 8 9\n 8 7 6")
-    --     `shouldBe` vector [1, 4, 7, 8]
-    --   column 1 (intMatrix "89 1903 3\n18 3 1\n9 4 800")
-    --     `shouldBe` vector [1903, 3, 4]
+    it "extract first column" $ do
+      column 0 (intMatrix "1 2 3\n4 5 6\n7 8 9\n 8 7 6")
+        `shouldBe` vector [1, 4, 7, 8]
+      column 1 (intMatrix "89 1903 3\n18 3 1\n9 4 800")
+        `shouldBe` vector [1903, 3, 4]
 
-    -- it "shape" $ do
-    --   shape (intMatrix ""        ) `shouldBe` (0, 0)
-    --   shape (intMatrix "1"       ) `shouldBe` (1, 1)
-    --   shape (intMatrix "1\n2"    ) `shouldBe` (2, 1)
-    --   shape (intMatrix "1 2"     ) `shouldBe` (1, 2)
-    --   shape (intMatrix "1 2\n3 4") `shouldBe` (2, 2)
+    it "shape" $ do
+      shape (intMatrix ""        ) `shouldBe` (0, 0)
+      shape (intMatrix "1"       ) `shouldBe` (1, 1)
+      shape (intMatrix "1\n2"    ) `shouldBe` (2, 1)
+      shape (intMatrix "1 2"     ) `shouldBe` (1, 2)
+      shape (intMatrix "1 2\n3 4") `shouldBe` (2, 2)
 
-    -- it "rows & cols" $
-    --   (rows &&& cols) (intMatrix "1 2") `shouldBe` (1, 2)
+    it "rows & cols" $
+      (rows &&& cols) (intMatrix "1 2") `shouldBe` (1, 2)
 
     it "eq" $ do
 
@@ -70,8 +70,8 @@ specs = describe "matrix" $ do
     -- it "reshape" $
     --   reshape (2, 2) (intMatrix "1 2 3 4") `shouldBe` intMatrix "1 2\n3 4"
 
-    -- it "flatten" $
-    --   flatten (intMatrix "1 2\n3 4") `shouldBe` vector [1, 2, 3, 4]
+    it "flatten" $
+      flatten (intMatrix "1 2\n3 4") `shouldBe` vector [1, 2, 3, 4]
 
     it "matrix of chars" $
       fromString "'f' 'o' 'o'\n'b' 'a' 'r'" `shouldBe` fromList ["foo", "bar"]

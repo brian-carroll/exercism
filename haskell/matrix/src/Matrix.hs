@@ -8,7 +8,7 @@ module Matrix
     , cols
     , column
     , flatten
-    , Matrix.fromList
+    , fromList
     , fromString
     , reshape
     , row
@@ -17,31 +17,44 @@ module Matrix
     , transpose
     ) where
 
-import Data.Vector (Vector, fromList, (!))
+import qualified Data.Vector as Vector (Vector, fromList, (!), length, head, map, toList, concat, null)
 import Data.Char (isDigit)
 
 
 data Matrix a =
-    Matrix (Vector (Vector a))
+    Matrix (Vector.Vector (Vector.Vector a))
     deriving (Eq, Show)
 
 
 cols :: Matrix a -> Int
-cols m = undefined
-    -- case m of
-    --     Matrix c -> length $ m ! 1
+cols m =
+    case m of
+        Matrix vv ->
+            if Vector.null vv then
+                0
+            else
+                Vector.length $ Vector.head vv
 
-column :: Int -> Matrix a -> Vector a
-column = undefined
 
-flatten :: Matrix a -> Vector a
-flatten = undefined
+column :: Int -> Matrix a -> Vector.Vector a
+column i m =
+    case m of
+        Matrix vv ->
+            Vector.map (\r -> r Vector.! i) vv
+
+
+flatten :: Matrix a -> Vector.Vector a
+flatten m =
+    case m of
+        Matrix vv ->
+            Vector.concat $ Vector.toList vv
+
 
 fromList :: [[a]] -> Matrix a
 fromList ll =
     Matrix $
-    Data.Vector.fromList $
-    map Data.Vector.fromList ll
+    Vector.fromList $
+    map Vector.fromList ll
 
 
 parseLine :: Bool -> String -> [String] -> String -> [String]
@@ -68,7 +81,7 @@ parseLine inQuotes buffer resultList s =
 
 fromString :: Read a => String -> Matrix a
 fromString s =
-    Matrix.fromList $
+    fromList $
     map (map read) $
     map words $
     lines s
@@ -88,14 +101,24 @@ fromString s =
 reshape :: (Int, Int) -> Matrix a -> Matrix a
 reshape = undefined
 
-row :: Int -> Matrix a -> Vector a
-row = undefined
+
+row :: Int -> Matrix a -> Vector.Vector a
+row i m =
+    case m of
+        Matrix vv ->
+            vv Vector.! i
+
 
 rows :: Matrix a -> Int
-rows = undefined
+rows m =
+    case m of
+        Matrix vv ->
+            Vector.length vv
 
 shape :: Matrix a -> (Int, Int)
-shape = undefined
+shape m =
+    (rows m, cols m)
+
 
 transpose :: Matrix a -> Matrix a
 transpose = undefined
