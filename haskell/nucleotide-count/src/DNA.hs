@@ -3,31 +3,46 @@ module DNA (count, nucleotideCounts) where
 import Data.Map (Map, fromList)
 import Data.Either (lefts, rights)
 
+validChars :: String
+validChars =
+    "ACGT"
+
+
 valid :: Char -> Bool
 valid x =
-    elem x "ACGT"
+    elem x validChars
 
 count :: Char -> String -> Either String Int
 count c s =
-    if not $ valid c then
-        Left "Invalid nucleotide"
-    else if not $ all valid s then
-        Left "Invalid sequence"
-    else
-        Right (length $ filter (== c) s)
+    let
+        foldClosure :: Either String Int -> Char -> Either String Int
+        foldClosure acc x =
+            if not $ valid x then
+                Left "Invalid strand"
+            else
+                case acc of
+                    Left msg ->
+                        Left msg
+                    Right total ->
+                        if x==c then
+                            Right (total + 1)
+                        else
+                            Right total
+    in
+        if not $ valid c then
+            Left "Invalid character"
+        else
+            foldl foldClosure (Right 0) s
 
 
 nucleotideCounts :: String -> Either String (Map Char Int)
 nucleotideCounts sequence =
     let
-        validChars =
-            "ACGT"
-
         counts =
             map (\c -> count c sequence) validChars
 
         allRight =
-            null $ lefts counts
+            all (\c -> elem c validChars) sequence
     in
         if not allRight then
             Left "Invalid input"
