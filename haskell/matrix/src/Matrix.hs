@@ -1,8 +1,3 @@
-{-
-Incomplete solution! Will upload proper version soon
--}
-
-
 module Matrix
     ( Matrix
     , cols
@@ -17,7 +12,7 @@ module Matrix
     , transpose
     ) where
 
-import qualified Data.Vector as Vector (Vector, fromList, (!), length, head, map, toList, concat, null)
+import qualified Data.Vector as Vector (Vector, fromList, (!), length, head, map, toList, concat, null, slice)
 import Data.Char (isDigit)
 
 
@@ -99,7 +94,18 @@ fromString s =
     --     Matrix.fromList listList
 
 reshape :: (Int, Int) -> Matrix a -> Matrix a
-reshape = undefined
+reshape (r,c) m =
+    let
+        f =
+            flatten m
+        lastRowIndex =
+            (Vector.length f) - c
+        rowIndices =
+            [0,c..lastRowIndex]
+    in
+        Matrix $
+            Vector.fromList $
+            map (\i -> Vector.slice i c f) rowIndices
 
 
 row :: Int -> Matrix a -> Vector.Vector a
@@ -115,10 +121,20 @@ rows m =
         Matrix vv ->
             Vector.length vv
 
+
 shape :: Matrix a -> (Int, Int)
 shape m =
     (rows m, cols m)
 
 
 transpose :: Matrix a -> Matrix a
-transpose = undefined
+transpose m =
+    let
+        lastCol =
+            (cols m) -1
+        columnIndices =
+            [0..lastCol]
+    in
+        Matrix $
+            Vector.fromList $
+            map (\i -> column i m) columnIndices

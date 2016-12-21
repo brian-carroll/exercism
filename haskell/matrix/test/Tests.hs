@@ -63,12 +63,12 @@ specs = describe "matrix" $ do
       fromList [[1 ,  2]] `shouldBe` intMatrix "1 2"
       fromList [[1], [2]] `shouldBe` intMatrix "1\n2"
 
-    -- it "transpose" $ do
-    --   transpose (intMatrix "1\n2\n3"      ) `shouldBe` intMatrix "1 2 3"
-    --   transpose (intMatrix "1 4\n2 5\n3 6") `shouldBe` intMatrix "1 2 3\n4 5 6"
+    it "transpose" $ do
+      transpose (intMatrix "1\n2\n3"      ) `shouldBe` intMatrix "1 2 3"
+      transpose (intMatrix "1 4\n2 5\n3 6") `shouldBe` intMatrix "1 2 3\n4 5 6"
 
-    -- it "reshape" $
-    --   reshape (2, 2) (intMatrix "1 2 3 4") `shouldBe` intMatrix "1 2\n3 4"
+    it "reshape" $
+      reshape (2, 2) (intMatrix "1 2 3 4") `shouldBe` intMatrix "1 2\n3 4"
 
     it "flatten" $
       flatten (intMatrix "1 2\n3 4") `shouldBe` vector [1, 2, 3, 4]
