@@ -6,17 +6,16 @@ const testVersion = 2
 
 // Convert number to raindrop sound
 func Convert(x int) string {
-	var pling, plang, plong, sound string
+	var sound = ""
 	if (x % 3) == 0 {
-		pling = "Pling"
+		sound += "Pling"
 	}
 	if (x % 5) == 0 {
-		plang = "Plang"
+		sound += "Plang"
 	}
 	if (x % 7) == 0 {
-		plong = "Plong"
+		sound += "Plong"
 	}
-	sound = pling + plang + plong
 	if len(sound) > 0 {
 		return sound
 	}
